@@ -1,0 +1,25 @@
+Bugs found in the starter code and their fixes
+
+1. testbed_description/CMakeLists.txt
+   ament_package was missing its parentheses, so the package could not be built.
+   Fix: changed to ament_package().
+
+2. testbed_bringup/maps/testbed_world.yaml
+   The image entry pointed to a non-existent file (wrong_path_testbed_world.pgm).
+   Fix: pointed it to testbed_world.pgm.
+
+3. testbed_bringup/CMakeLists.txt
+   The maps directory was not installed, so the map was missing from the install space.
+   Fix: added maps to the install(DIRECTORY ...) rule.
+
+4. testbed_gazebo/CMakeLists.txt
+   The models directory was not installed, although the launch file adds it to GAZEBO_MODEL_PATH.
+   Fix: added models to the install(DIRECTORY ...) rule.
+
+5. testbed_description/launch/robot_description.launch.py
+   robot_state_publisher did not use simulation time, unlike the RViz node in the bringup launch file.
+   Fix: added the use_sim_time parameter.
+
+6. testbed_description/urdf/testbed.gazebo
+   Stray extra ">" after the initial_orientation_as_reference tag in the IMU plugin.
+   Fix: removed it.
