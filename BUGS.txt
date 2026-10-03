@@ -23,3 +23,7 @@ Bugs found in the starter code and their fixes
 6. testbed_description/urdf/testbed.gazebo
    Stray extra ">" after the initial_orientation_as_reference tag in the IMU plugin.
    Fix: removed it.
+
+7. testbed_description/urdf/testbed.gazebo
+   The lidar maximum range was 1.5 m, so from the spawn point in a 20 m map every beam returned inf and the scan was empty. This left AMCL with no data to localize against.
+   Fix: raised the sensor range max to 10.0 m and set laser_max_range in the AMCL parameters to match.
