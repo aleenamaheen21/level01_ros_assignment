@@ -43,6 +43,6 @@ Each launch file has its own lifecycle manager, which activates that group's nod
     ros2 launch testbed_navigation navigation.launch.py
 ```
 
-4. 4. The simulation launch opens Gazebo and an RViz window with its own configuration. In RViz, use File > Open Config and load `rviz/navigation.rviz` (the installed copy is under `install/testbed_navigation/share/testbed_navigation/rviz/`). Then send a goal with **2D Goal Pose**.
+4. The simulation launch opens Gazebo and an RViz window with its own configuration. In RViz, use File > Open Config and load `rviz/navigation.rviz` (the installed copy is under `install/testbed_navigation/share/testbed_navigation/rviz/`). Then send a goal with **2D Goal Pose**.
 
 Start localization soon after the simulator. In one run the laser scan was misaligned with the walls after the simulator had been running about 9 minutes before AMCL started; after restarting everything within about a minute, the scan lined up. A likely cause is that AMCL starts from the fixed initial pose in `amcl_params.yaml` while the robot had drifted, but this was not verified.
