@@ -106,35 +106,35 @@ controller_server:
     # Path-following controller parameters
     FollowPath:
       plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
-      desired_linear_vel: 0.3 # forward speed in m/s
-      lookahead_dist: 0.5
-      use_velocity_scaled_lookahead_dist: false # keeps the lookahead fixed instead of growing with speed
-      transform_tolerance: 0.1
-      use_rotate_to_heading: true
-      rotate_to_heading_angular_vel: 1.0
-      use_regulated_linear_velocity_scaling: true
-      regulated_linear_scaling_min_speed: 0.1
+      desired_linear_vel: 0.3 # Cruising forward speed (m/s)
+      lookahead_dist: 0.5 # Distance ahead on the path that the robot steers toward (m)
+      use_velocity_scaled_lookahead_dist: false # Keep the lookahead distance fixed instead of scaling it with speed
+      transform_tolerance: 0.1 # Maximum age of a TF transform the controller accepts (s)
+      use_rotate_to_heading: true # Rotate in place to face the path before driving
+      rotate_to_heading_angular_vel: 1.0 # Rotation speed for that turn (rad/s)
+      use_regulated_linear_velocity_scaling: true # Slow down in tight curves
+      regulated_linear_scaling_min_speed: 0.1 # Lowest speed used while slowing down (m/s)
 
 behavior_server:
   ros__parameters:
-    costmap_topic: local_costmap/costmap_raw
-    footprint_topic: local_costmap/published_footprint
-    cycle_frequency: 10.0
-    behavior_plugins: ["spin", "backup", "wait"]
+    costmap_topic: local_costmap/costmap_raw # Local costmap used to check that spin and backup are collision-free
+    footprint_topic: local_costmap/published_footprint # Robot outline used for those collision checks
+    cycle_frequency: 10.0 # Update rate of a running behavior (Hz)
+    behavior_plugins: ["spin", "backup", "wait"] # Recovery behaviors to load
     spin:
       plugin: "nav2_behaviors/Spin"
     backup:
       plugin: "nav2_behaviors/BackUp"
     wait:
       plugin: "nav2_behaviors/Wait"
-    global_frame: odom
-    robot_base_frame: base_link
-    transform_tolerance: 0.1
-    use_sim_time: true
-    simulate_ahead_time: 2.0
-    max_rotational_vel: 1.0
-    min_rotational_vel: 0.4
-    rotational_acc_lim: 3.2
+    global_frame: odom # Behaviors move the robot relative to the smooth odom frame
+    robot_base_frame: base_link # Frame that represents the robot
+    transform_tolerance: 0.1 # Maximum age of a TF transform that is accepted (s)
+    use_sim_time: true # Use the simulator clock
+    simulate_ahead_time: 2.0 # Look this far ahead (s) and abort if the motion would collide
+    max_rotational_vel: 1.0 # Maximum spin speed (rad/s)
+    min_rotational_vel: 0.4 # Minimum spin speed, enough to overcome friction (rad/s)
+    rotational_acc_lim: 3.2 # Maximum change in spin speed (rad/s^2)
 
 bt_navigator:
   ros__parameters:
@@ -142,9 +142,9 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
-    bt_loop_duration: 10
-    default_server_timeout: 20
-    wait_for_service_timeout: 1000
+    bt_loop_duration: 10 # Pause between behavior tree ticks (ms)
+    default_server_timeout: 20 # How long a tree node waits for a server's reply (ms)
+    wait_for_service_timeout: 1000 # How long to wait for a server to become available (ms)
     plugin_lib_names:
       - nav2_compute_path_to_pose_action_bt_node
       - nav2_compute_path_through_poses_action_bt_node
