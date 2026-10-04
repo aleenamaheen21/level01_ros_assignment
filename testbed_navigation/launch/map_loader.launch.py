@@ -12,12 +12,18 @@ def generate_launch_description():
         'testbed_world.yaml',
     )
 
+    params_file = os.path.join(
+        get_package_share_directory('testbed_navigation'),
+        'config',
+        'map_server_params.yaml',
+    )
+
     map_server = Node(
         package='nav2_map_server',
         executable='map_server',
         name='map_server',
         output='screen',
-        parameters=[{'yaml_filename': map_yaml}],
+        parameters=[params_file, {'yaml_filename': map_yaml}],
     )
 
     lifecycle_manager = Node(
@@ -25,10 +31,7 @@ def generate_launch_description():
         executable='lifecycle_manager',
         name='lifecycle_manager_map',
         output='screen',
-        parameters=[{
-            'autostart': True,
-            'node_names': ['map_server'],
-        }],
+        parameters=[params_file],
     )
 
     return LaunchDescription([map_server, lifecycle_manager])

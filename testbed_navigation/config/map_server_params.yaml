@@ -1,0 +1,11 @@
+map_server:
+  ros__parameters:
+    # Frame the map is expressed in, and the topic it is published on.
+    frame_id: map
+    topic_name: map
+
+lifecycle_manager_map:
+  ros__parameters:
+    # Configure and activate the nodes listed below as soon as they start.
+    autostart: true
+    node_names: ['map_server']
