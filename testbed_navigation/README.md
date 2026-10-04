@@ -13,6 +13,7 @@ Each launch file has its own lifecycle manager, which activates that group's nod
 ## Package layout
 
 - `config/amcl_params.yaml`: parameters for AMCL
+- `config/map_server_params.yaml`: parameters for `map_server` and its lifecycle manager (the map image path is added by the launch file, since it depends on where the package is installed)
 - `config/nav2_params.yaml`: parameters for the planner, controller, behavior server, `bt_navigator` and the costmaps
 - `launch/`: the three launch files
 - `rviz/navigation.rviz`: RViz configuration with the map, costmap, scan, plan and footprint displays
